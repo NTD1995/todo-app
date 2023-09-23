@@ -14,6 +14,8 @@ const App = () => {
   // const [todoId, setTodoId] = useState(todos.length + 1);
   // const [filteredTodos, setFilteredTodos] = useState([]);
 
+  const [isEditable, setIsEditable] = useState(false);
+
   // 入力されたtodoの値を設定する処理
   const handleAddFormChanges = (e) => {
     setTodoTitle(e.target.value);
@@ -41,6 +43,7 @@ const App = () => {
   const handleDeleteTodo = (targetTodo) => {
     setTodos(todos.filter((todo) => todo !== targetTodo));
   };
+  
   // const handleDetailTodo = () => {
   //   const newTodos = todos.map((todo) => ({ ...todo }));
 
@@ -98,6 +101,14 @@ const App = () => {
     });
   };
 
+    const handleOpenEditForm = () => {
+    setIsEditable(true)
+  }
+
+  const handleCloseEditForm = () => {
+    setIsEditable(false)
+  }
+
   console.log(todos);
 
   return (
@@ -105,6 +116,13 @@ const App = () => {
       <h2>todo-app</h2>
       {/*todoの一覧を表示する  */}
       {/* <TodoList todos={todos} /> */}
+      {isEditable ? (
+        <div>
+          <input type="text" label="新しいタイトル" />
+          <button>編集を保存</button>
+          <button onClick={handleCloseEditForm}>キャンセル</button>
+        </div>
+      ) : (
       <input type="text" value={todoTitle} onChange={handleAddFormChanges} />
       <input type="text" value={detail} onChange={handleDetailFormChanges} />
       <button onClick={handleAddTodo}>TODOの作成</button>
@@ -115,6 +133,7 @@ const App = () => {
         <option value="inProgress">作業中</option>
         <option value="done">完了</option>
       </select>
+      )}
       {/* todoの一覧を表示する */}
       <ul>
         {todos.map((todo) => (
@@ -129,7 +148,7 @@ const App = () => {
               <option value="inProgress">作業中</option>
               <option value="done">完了</option>
             </select>
-            {/* <button onClick={() => handleOpenEditForm(todo)}>TODOの詳細</button> */}
+            <button onClick={() => handleOpenEditForm(todo)}>TODOの編集</button>
             <button onClick={() => handleDeleteTodo(todo)}>TODOの削除</button>
           </li>
         ))}
