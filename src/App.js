@@ -6,7 +6,6 @@ import React from "react";
 
 const App = () => {
   const [todoTitle, setTodoTitle] = useState("");
-  const [filter, setFilter] = useState("all");
   const [detail, setDetail] = useState("");
   const [todos, setTodos] = useState([
     { id: 1, title: "Todo1", status: filter, detail: detail },
@@ -18,8 +17,6 @@ const App = () => {
   const [editId, setEditId] = useState('')
 
   const [newTitle, setNewTitle] = useState('')
-
-  const [filter, setFilter] = useState('notStarted')
 
     const [filteredTodos, setFilteredTodos] = useState([])
 
@@ -64,8 +61,6 @@ const App = () => {
   //   setDetailId();
   // };
 
-  const handleStatusChange = ({ id }, e) => {
-    const newTodos = todos.map((todo) => ({ ...todo }));
 
     setTodos(
       newTodos.map((todo) =>
@@ -111,8 +106,6 @@ const App = () => {
     handleCloseEditForm('')
   }
 
-    const handleStatusChange = (targetTodo, e) => {
-    console.log(targetTodo)
 
      const newArray = todos.map((todo) =>
       todo.id === targetTodo.id ? { ...todo, status: e.target.value } : todo
@@ -162,6 +155,7 @@ const App = () => {
           <button onClick={handleCloseEditForm}>キャンセル</button>
         </div>
       ) : (
+        <div>
       <input type="text" value={todoTitle} onChange={handleAddFormChanges} />
       <input type="text" value={detail} onChange={handleDetailFormChanges} />
       <button onClick={handleAddTodo}>TODOの作成</button>
@@ -172,6 +166,7 @@ const App = () => {
         <option value="inProgress">作業中</option>
         <option value="done">完了</option>
       </select>
+      </div>
       )}
       {/* todoの一覧を表示する */}
       <ul>
